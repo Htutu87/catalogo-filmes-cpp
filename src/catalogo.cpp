@@ -63,18 +63,111 @@ istream & operator>>(istream & _cin, Filme& _filme)
 
 // Operações para comparar filmes.
 
+bool operator<(Filme _f1, Filme _f2)
+{
+    string menorNome;
+    string maiorNome;
+    unsigned long indice = 0;
+
+    if (_f1.nome == _f2.nome)
+        return false;
+
+    if (_f1.nome.size() >= _f2.nome.size())
+    { 
+        menorNome = _f2.nome;
+        maiorNome = _f1.nome;
+    } 
+    else
+    {
+        menorNome = _f1.nome;
+        maiorNome = _f2.nome;
+    }
+
+    while (indice < menorNome.size())
+    {
+       // cout << _f1.nome[indice] << " < " << _f2.nome[indice]
+        //    << " -> " << (_f1.nome[indice] < _f2.nome[indice]) << endl;
+
+        if (_f1.nome[indice] < _f2.nome[indice])
+            return true;
+
+        if (_f1.nome[indice] > _f2.nome[indice])
+            return false;
+
+        indice++;
+    } 
+    // Sair do loop significa que a comparação entre os caracteres deu
+    // igual até o momento.
+
+    // Isso não exclui o fato de que o f1 tambem tem o nome igual a menorNome.
+    // artur artura
+    //
+    if (_f1.nome == menorNome)
+        return true;
+    return false; 
+}
+
+bool operator>(Filme _f1, Filme _f2)
+{
+    string menorNome;
+    string maiorNome;
+    unsigned long indice = 0;
+
+    if (_f1.nome == _f2.nome)
+        return false;
+
+    if (_f1.nome.size() >= _f2.nome.size())
+    { 
+        menorNome = _f2.nome;
+        maiorNome = _f1.nome;
+    } 
+    else
+    {
+        menorNome = _f1.nome;
+        maiorNome = _f2.nome;
+    }
+
+    while (indice < menorNome.size())
+    {
+       // cout << _f1.nome[indice] << " < " << _f2.nome[indice]
+        //    << " -> " << (_f1.nome[indice] < _f2.nome[indice]) << endl;
+
+        if (_f1.nome[indice] > _f2.nome[indice])
+            return true;
+
+        if (_f1.nome[indice] < _f2.nome[indice])
+            return false;
+
+        indice++;
+    } 
+
+    if (_f1.nome == maiorNome)
+        return true;
+    return false; 
+}
+
+bool operator==(Filme _f1, Filme _f2)
+{
+    return (_f1.nome == _f2.nome) ? true : false;
+
+}
+
+bool operator<(Filme _f, double nota) {
+    return (_f.nota < nota) ? true : false;
+}
+
+bool operator>(Filme _f, double nota){
+    return (_f.nota > nota) ? true : false;
+}
+
 // Métodos da classe catálogo.
 Catalogo::Catalogo(string nomeArquivo)
 {
     string a = nomeArquivo;
 }
 
-void Catalogo::operator+=(Filme & _filme)
-{
+void Catalogo::operator+=(Filme & _filme) {
     filmes.push_back(_filme);
-    // c += _filme;
-    // Precisa mesmo retornar o ponteiro para o objeto?
-    // Checar se a struct não está inicializada.
 }
 
 void Catalogo::operator+=(vector<Filme> & _filmes)

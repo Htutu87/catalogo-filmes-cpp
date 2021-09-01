@@ -38,7 +38,7 @@ bool operator==(Filme, Filme);
 
 // Impressão do cátalogo na tela.
 
-ostream & operator<<(ostream &, Catalogo);
+ostream & operator<<(ostream &, Catalogo); // OK!
 ostream & operator<<(ostream &, Filme); //OK!
 
 // Inicialização de atributos de Filme.
@@ -47,8 +47,8 @@ istream & operator>>(istream &, Filme&); // OK!
 
 // Comparar nota do Filme com a mais bem avaliada;
 
-bool operator<(Filme, double);
-bool operator>(Filme, double);
+bool operator<(Filme, double); // OK!
+bool operator>(Filme, double); // OK!
 
 // ------------------------------------------------
 

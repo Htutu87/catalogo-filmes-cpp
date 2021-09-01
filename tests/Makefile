@@ -15,6 +15,7 @@ $(OBJDIR)/%.o: %.cpp
 all: inout comparisons
 
 # Recompila o arquivo catalogo.cpp.
+# OBS: O .o tem que existir no diretório pai
 update-lib:
 	$(CC) $(CFLAGS) -c ../src/catalogo.cpp -o ./obj/catalogo.o
 

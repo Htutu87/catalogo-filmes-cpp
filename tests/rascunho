@@ -1,0 +1,27 @@
+
+f1 {
+nome = "Artur";
+}
+
+f2 {
+nome = "GabrielArtur";
+}
+
+menorNome 
+maiorNome
+
+Ana < Anamaria ? SIM
+Anamaria < ana ? NÃO
+
+OPERADOR <  (f1 < f2 ?)
+
+Para cada char do menor nome
+    Se charMenor < charMenor
+        return true
+    Se charMenor > charMenor
+        return false
+
+Se f1 == menorString
+    return true
+else
+    return false
