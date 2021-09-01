@@ -6,13 +6,23 @@ CFLAGS = -Wall
 OBJDIR = obj
 DEPSDIR = ../obj
 DEPS = $(DEPSDIR)/catalogo.o
-EXECS = test-cin
+EXECS = inout-test\
+		comparisons-test
 
 $(OBJDIR)/%.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@	
 
-cin: $(OBJDIR)/test-cin.o $(DEPS)
-	$(CC) $(CFLAGS) $(OBJDIR)/test-cin.o $(DEPS) -o test-cin
+all: inout comparisons
+
+# Recompila o arquivo catalogo.cpp.
+update-lib:
+	$(CC) $(CFLAGS) -c ../src/catalogo.cpp -o ./obj/catalogo.o
+
+inout: update-lib $(OBJDIR)/inout-test.o $(DEPS)
+	$(CC) $(CFLAGS) $(OBJDIR)/inout-test.o $(DEPS) -o inout-test
+
+comparisons: update-lib $(OBJDIR)/comparisons-test.o $(DEPS)
+	$(CC) $(CFLAGS) $(OBJDIR)/comparisons-test.o $(DEPS) -o comparisons-test
 
 clean:
 	rm $(EXECS) $(OBJDIR)/*.o

@@ -7,6 +7,7 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <iomanip>
 
 using namespace std;
 
@@ -38,7 +39,7 @@ bool operator==(Filme, Filme);
 // Impressão do cátalogo na tela.
 
 ostream & operator<<(ostream &, Catalogo);
-ostream & operator<<(ostream &, Filme);
+ostream & operator<<(ostream &, Filme); //OK!
 
 // Inicialização de atributos de Filme.
 
@@ -63,8 +64,8 @@ class Catalogo
         // Struct do Filme deve ter seus atributos inicialiados previamente.
         // Caso seja inserido um vector de Filmes, utilizar o método insert().
 
-        Catalogo operator+=(Filme);
-        Catalogo operator+=(vector<Filme>);
+        void operator+=(Filme &);
+        void operator+=(vector<Filme> &);
 
         // Remoção de Filmes do catálogo.
         // Busca um Filme pelo nome e o remove através do método erase().
@@ -88,6 +89,8 @@ class Catalogo
         Filme * operator()(string, string, double);
 
         // ---
+        
+        vector <Filme> getListaFilmes();
        
     private:
 

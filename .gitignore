@@ -1,4 +1,4 @@
 catalogo
 obj/*
 tests/obj/*
-tests/test-*
+tests/*-test
