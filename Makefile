@@ -12,6 +12,7 @@ EXEC = catalogo
 
 catalogo: $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(EXEC)
+	cp $(OBJDIR)/catalogo.o tests/obj/
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	    $(CC) $(CFLAGS) -c $< -o $@

@@ -42,7 +42,7 @@ ostream & operator<<(ostream &, Filme);
 
 // Inicialização de atributos de Filme.
 
-istream & operator<<(istream &, Filme);
+istream & operator>>(istream &, Filme&); // OK!
 
 // Comparar nota do Filme com a mais bem avaliada;
 
