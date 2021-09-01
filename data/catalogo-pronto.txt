@@ -1,0 +1,13 @@
+O poderoso chefao,DreamWorks,4.2 
+Pulp Fiction,DreamWorks,5.3
+Central do Brasil,DreamWorks,3.3
+Parasita,MGM,9.6
+Bastardos Inglorios,MGM,7.4
+O iluminado,MGM,8.0
+Batman - O cavaleiro das trevas,Paramount,7.0
+La la land,Paramount,6.4
+Caes de Aluguel,Paramount,10.0
+E.T.,21st Century Fox, 9.9
+Cidade de Deus,21st Century Fox,3.0
+Forrest Gump,21st Century Fox,9.6
+Rio,21st Century Fox,6.0

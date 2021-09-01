@@ -1,0 +1,4 @@
+catalogo
+obj/*
+tests/obj/*
+tests/test-*
