@@ -7,7 +7,8 @@ OBJDIR = obj
 DEPSDIR = ../obj
 DEPS = $(DEPSDIR)/catalogo.o
 EXECS = inout-test\
-		comparisons-test
+		comparisons-test\
+		sort-test
 
 $(OBJDIR)/%.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@	
@@ -24,6 +25,9 @@ inout: update-lib $(OBJDIR)/inout-test.o $(DEPS)
 
 comparisons: update-lib $(OBJDIR)/comparisons-test.o $(DEPS)
 	$(CC) $(CFLAGS) $(OBJDIR)/comparisons-test.o $(DEPS) -o comparisons-test
+
+sort: update-lib $(OBJDIR)/sort-test.o $(DEPS)
+	$(CC) $(CFLAGS) $(OBJDIR)/sort-test.o $(DEPS) -o sort-test
 
 clean:
 	rm $(EXECS) $(OBJDIR)/*.o
