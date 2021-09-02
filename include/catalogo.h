@@ -66,13 +66,13 @@ class Catalogo
         // Struct do Filme deve ter seus atributos inicialiados previamente.
         // Caso seja inserido um vector de Filmes, utilizar o método insert().
 
-        void operator+=(Filme &);
-        void operator+=(vector<Filme> &);
+        void operator+=(Filme &); //OK! 
+        void operator+=(vector<Filme> &); //OK!
 
         // Remoção de Filmes do catálogo.
         // Busca um Filme pelo nome e o remove através do método erase().
 
-        Catalogo operator-=(Filme);
+        void operator-=(Filme);
 
         // Busca por Filme.
         // Recebe o nome do Filme e retorna um ponteiro para sua estrutura.

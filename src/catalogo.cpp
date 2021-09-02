@@ -183,6 +183,23 @@ void Catalogo::operator+=(vector<Filme> & _filmes)
     insertionSort();
 }
 
+void Catalogo::operator-=(Filme _filme)
+{
+    int indice = 0;
+    bool acheiFilme = false;
+    for (Filme filme:filmes)
+    {
+        if (filme == _filme)
+        {
+            filmes.erase(filmes.begin() + indice);
+            acheiFilme = true;
+        }
+        indice++;
+    }
+    if (!acheiFilme)
+        cout << "Este filme nao existe no catalogo. Impossivel remove-lo." << endl; 
+}
+
 vector <Filme> Catalogo::getListaFilmes(){
     return filmes;
 }

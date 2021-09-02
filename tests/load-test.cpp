@@ -16,6 +16,8 @@ int main(int argc, char* argv[])
     cout << "Inserir filme? [s/n]: ";
     getline(cin, op);
 
+    Filme removido;
+
     while (op == "s"){
         cin >> f; 
         catalogo += f;
@@ -23,6 +25,12 @@ int main(int argc, char* argv[])
         cout << "Inserir filme? [s/n]: ";
         getline(cin, op);
     }
+
+    cout << catalogo;
+    
+    catalogo -= f ;
+
+    cout << catalogo;
 
     return 0;
 }
