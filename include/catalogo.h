@@ -59,8 +59,8 @@ class Catalogo
         
         // Construtores e destrutores realizam a persistência dos dados.
         // Caso não exista o arquivo, ele o cria em ./data/
-        Catalogo(string);
-        ~Catalogo();
+        Catalogo(string); // OK!
+        ~Catalogo(); // OK!
 
         // Adição de Filmes ao catálogo.
         // Struct do Filme deve ter seus atributos inicialiados previamente.
@@ -72,7 +72,7 @@ class Catalogo
         // Remoção de Filmes do catálogo.
         // Busca um Filme pelo nome e o remove através do método erase().
 
-        void operator-=(Filme);
+        void operator-=(Filme); //OK!
 
         // Busca por Filme.
         // Recebe o nome do Filme e retorna um ponteiro para sua estrutura.
@@ -106,18 +106,4 @@ class Catalogo
         vector <Filme> filmes;
         unsigned numMaxFilmes = NUM_MAX_FILMES;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

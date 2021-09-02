@@ -200,6 +200,52 @@ void Catalogo::operator-=(Filme _filme)
         cout << "Este filme nao existe no catalogo. Impossivel remove-lo." << endl; 
 }
 
+Filme * Catalogo::operator()(string _nome)
+{ 
+    for (Filme & filme:filmes)
+        if (filme.nome == _nome)
+            return &filme;
+    return NULL;
+}
+
+Filme * Catalogo::operator()(string nome, string novaProdutora)
+{
+    Filme * filmeAlterado;
+
+    filmeAlterado = (*this)(nome);
+    if (!filmeAlterado)
+        return NULL;
+    
+    (*filmeAlterado).produtora = novaProdutora;
+    return filmeAlterado;
+}
+
+Filme * Catalogo::operator()(string nome, double novaNota)
+{
+    Filme * filmeAlterado;
+
+    filmeAlterado = (*this)(nome);
+    if (!filmeAlterado)
+        return NULL;
+    
+    (*filmeAlterado).nota = novaNota;
+    return filmeAlterado;
+}
+
+Filme * Catalogo::operator()(string nome, string novaProdutora, double novaNota)
+{
+    Filme * filmeAlterado;
+
+    filmeAlterado = (*this)(nome);
+    if (!filmeAlterado)
+        return NULL;
+    
+    (*filmeAlterado).produtora = novaProdutora;
+    (*filmeAlterado).nota = novaNota;
+    return filmeAlterado;
+}
+
+
 vector <Filme> Catalogo::getListaFilmes(){
     return filmes;
 }

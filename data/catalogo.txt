@@ -1,6 +1,6 @@
 A lista de schindler,MGM,7
 Amor sem frontreiras,21st century fox,3
 Boneco assassino,MGM,2
-Rio,Paramount,3
+Rio,mgaasa,3
 Santo Agostinho,MGM,3.4
-Senhor dos aneis,MGM,6
+Senhor dos aneis,DreamWorks,6.7

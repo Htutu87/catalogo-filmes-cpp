@@ -26,11 +26,24 @@ int main(int argc, char* argv[])
         getline(cin, op);
     }
 
-    cout << catalogo;
+    string novaProdutora;
+    string novaNota;
+    Filme* fPtr;
+
+    cout << "Alterar filme por nome: ";
+    getline(cin, op);
+    fPtr = catalogo(op);
+    if(fPtr == NULL) cout << "Este filme nao existe no catalogo." << endl;
+    else cout << *fPtr;
     
-    catalogo -= f ;
-
-    cout << catalogo;
-
+    cout << "Nova Produtora: ";
+    getline(cin, novaProdutora);
+    cout << "Nova nota: ";
+    getline(cin, novaNota);
+    
+    
+    fPtr = catalogo(op, novaProdutora, stod(novaNota));
+    if(fPtr == NULL) cout << "Este filme nao existe no catalogo." << endl;
+    else cout << *fPtr;
     return 0;
 }
