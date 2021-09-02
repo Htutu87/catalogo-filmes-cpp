@@ -21,13 +21,13 @@ ostream & operator<<(ostream & _cout, Filme _filme)
 ostream & operator<<(ostream & _cout, Catalogo _catalogo)
 {
     cout << "----------------- CATALOGO DE FILMES ----------------" << endl;
-    cout <<  setw(25) << "Filme" << setw(25) << "Produtora" << setw(25) 
+    cout <<  setw(25) << "Filme" << setw(25) << "Produtora" << setw(15) 
         << "Nota" << endl << endl;
 
     for (Filme filme:_catalogo.getListaFilmes())
     {
         cout << setw(25) << filme.nome << setw(25) << filme.produtora
-            << setw(25) << filme.nota << endl;
+            << setw(15) << filme.nota << endl;
     }
 
     cout << "-----------------------------------------------------" << endl;
@@ -161,21 +161,110 @@ bool operator>(Filme _f, double nota){
 }
 
 // Métodos da classe catálogo.
-Catalogo::Catalogo(string nomeArquivo)
+Catalogo::Catalogo(string _nomeArquivo)
 {
-    string a = nomeArquivo;
+    carregar(_nomeArquivo);
+    nomeArquivo = _nomeArquivo; 
+}
+
+Catalogo::~Catalogo() {
+    salvar(nomeArquivo);
 }
 
 void Catalogo::operator+=(Filme & _filme) {
     filmes.push_back(_filme);
+    insertionSort();
 }
 
 void Catalogo::operator+=(vector<Filme> & _filmes)
 {
     for (Filme filme:_filmes)
         filmes.push_back(filme);
+    insertionSort();
 }
 
 vector <Filme> Catalogo::getListaFilmes(){
     return filmes;
 }
+
+// Créditos: Esta função foi adaptada da Wikipedia, por simplicidade.
+void Catalogo::insertionSort()
+{
+    for (int i = 1; i < static_cast<int>(filmes.size()); i++) 
+    {
+        Filme escolhido = filmes[i];
+        int j = i - 1;
+    
+        while ((j >= 0) && (filmes[j] > escolhido))
+        {
+            filmes[j + 1] = filmes[j];
+            j--;
+        }
+
+        filmes[j + 1] = escolhido;
+    }
+}
+
+void Catalogo::carregar(string nomeArquivo)
+{
+    ifstream arquivo;
+    string linhaArquivo;
+    string nome;
+    string produtora;
+    string notaStr;
+    double nota;
+    bool lerArquivo = true;
+
+    arquivo.open(nomeArquivo);
+
+    if(!arquivo) {
+            cout << "Impedido de abrir arquivo." << endl;
+            return ;
+    }
+
+    
+    while (lerArquivo)
+    {
+
+        getline(arquivo, linhaArquivo);
+    
+        if (arquivo.eof())
+            lerArquivo = false;
+        else 
+        {    
+            nome = linhaArquivo.substr(0, linhaArquivo.find(','));
+            
+            linhaArquivo = linhaArquivo.erase(0,linhaArquivo.find(',')
+                    + 1/*COMPRIMENTO DO DELIMITADOR*/);
+            
+            produtora = linhaArquivo.substr(0, linhaArquivo.find(','));
+            
+            notaStr = linhaArquivo.substr(linhaArquivo.find(',')+1,
+                                         linhaArquivo.find('\n'));
+            nota = stod(notaStr);
+
+            Filme f = {nome, produtora, nota};
+            (*this) += f;
+        }
+    }
+    
+    insertionSort();
+    
+    arquivo.close();
+
+}
+
+void Catalogo::salvar(string nomeArquivo)
+{
+    ofstream arquivo;
+    arquivo.open (nomeArquivo);
+    for (Filme f:filmes)
+        arquivo << f.nome << "," << f.produtora << "," << f.nota << endl;
+    arquivo.close();
+}
+
+
+
+
+
+

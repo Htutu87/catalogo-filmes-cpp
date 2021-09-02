@@ -8,6 +8,7 @@
 #include <vector>
 #include <iostream>
 #include <iomanip>
+#include <fstream>
 
 using namespace std;
 
@@ -32,9 +33,9 @@ class Catalogo;
 // Hipótese: Pelo que vi na internet, se eu chamar o método sort() para um
 // vector<filmes>, eles serão ordenados segundo as ordens desse operador.
 
-bool operator<(Filme, Filme);
-bool operator>(Filme, Filme);
-bool operator==(Filme, Filme);
+bool operator<(Filme, Filme); // OK!
+bool operator>(Filme, Filme); // OK
+bool operator==(Filme, Filme); // OK!
 
 // Impressão do cátalogo na tela.
 
@@ -59,6 +60,7 @@ class Catalogo
         // Construtores e destrutores realizam a persistência dos dados.
         // Caso não exista o arquivo, ele o cria em ./data/
         Catalogo(string);
+        ~Catalogo();
 
         // Adição de Filmes ao catálogo.
         // Struct do Filme deve ter seus atributos inicialiados previamente.
@@ -90,13 +92,16 @@ class Catalogo
 
         // ---
         
-        vector <Filme> getListaFilmes();
+        vector <Filme> getListaFilmes(); // OK!
+        void insertionSort(); // OK!
        
     private:
 
         // Implementação da persistência dos dados através de um CSV.
         void carregar(string);
         void salvar(string);
+        string nomeArquivo;
+        //void insertionSort(); TEM QUE DEIXAR PRIVADO, NO FIM.
 
         vector <Filme> filmes;
         unsigned numMaxFilmes = NUM_MAX_FILMES;

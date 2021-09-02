@@ -8,7 +8,7 @@
 
 int main()
 {
-    //Catalogo catalogo;   
+    Catalogo catalogo("data/catalogo-pronto.txt");   
     
     return 0;
 }

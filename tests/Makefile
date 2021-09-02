@@ -8,12 +8,13 @@ DEPSDIR = ../obj
 DEPS = $(DEPSDIR)/catalogo.o
 EXECS = inout-test\
 		comparisons-test\
-		sort-test
+		sort-test\
+		load-test
 
 $(OBJDIR)/%.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@	
 
-all: inout comparisons
+all: inout comparisons sort load
 
 # Recompila o arquivo catalogo.cpp.
 # OBS: O .o tem que existir no diretório pai
@@ -28,6 +29,9 @@ comparisons: update-lib $(OBJDIR)/comparisons-test.o $(DEPS)
 
 sort: update-lib $(OBJDIR)/sort-test.o $(DEPS)
 	$(CC) $(CFLAGS) $(OBJDIR)/sort-test.o $(DEPS) -o sort-test
+
+load: update-lib $(OBJDIR)/load-test.o $(DEPS)
+	$(CC) $(CFLAGS) $(OBJDIR)/load-test.o $(DEPS) -o load-test
 
 clean:
 	rm $(EXECS) $(OBJDIR)/*.o
