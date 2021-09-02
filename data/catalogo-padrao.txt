@@ -2,16 +2,15 @@
 A lista de Schindler, Paramount,7
 Bastardos Inglorios,MGM,7.4
 Batman begins,Paramount,7
-Caes de Aluguel,Paramount,10
+Caes de Aluguel,MGM,10
 Central do Brasil,DreamWorks,3.3
 Cidade de Deus,21st Century Fox,3
+Django livre,MGM,5
 E.T.,21st Century Fox,9.9
 Forrest Gump,21st Century Fox,9.6
 Green Book,Paramount,7.2
 La la land,Paramount,6.4
 O iluminado,MGM,8
 O poderoso chefao,DreamWorks,4.2
-Parasita,MGM,9.6
+Parasita,MGM,6
 Pulp Fiction,DreamWorks,5.3
-Rio,21st Century Fox,6
-Senhor dos Aneis,MGM,10

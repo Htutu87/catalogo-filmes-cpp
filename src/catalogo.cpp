@@ -35,7 +35,6 @@ ostream & operator<<(ostream & _cout, Catalogo _catalogo)
     return _cout;
 }
 
-
 // Inicialização de filme.
 istream & operator>>(istream & _cin, Filme& _filme)
 {
@@ -161,10 +160,13 @@ bool operator>(Filme _f, double nota){
 }
 
 // Métodos da classe catálogo.
-Catalogo::Catalogo(string _nomeArquivo)
+Catalogo::Catalogo(bool inicializarVazio, string _nomeArquivo)
 {
-    carregar(_nomeArquivo);
-    nomeArquivo = _nomeArquivo; 
+    if (!inicializarVazio)
+    {
+        carregar(_nomeArquivo);
+        nomeArquivo = _nomeArquivo;
+    }
 }
 
 Catalogo::~Catalogo() {
@@ -189,6 +191,7 @@ void Catalogo::operator-=(Filme _filme)
     bool acheiFilme = false;
     for (Filme filme:filmes)
     {
+
         if (filme == _filme)
         {
             filmes.erase(filmes.begin() + indice);
@@ -326,8 +329,11 @@ void Catalogo::salvar(string nomeArquivo)
     arquivo.close();
 }
 
-
-
-
-
-
+bool Catalogo::verificarExistenciaDoFilme(Filme f)
+{
+    for (Filme filme:filmes)
+        if (filme.nome == f.nome)
+            return true;
+    return false;
+    
+}

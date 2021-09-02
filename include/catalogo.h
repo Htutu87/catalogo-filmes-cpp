@@ -59,7 +59,7 @@ class Catalogo
         
         // Construtores e destrutores realizam a persistência dos dados.
         // Caso não exista o arquivo, ele o cria em ./data/
-        Catalogo(string); // OK!
+        Catalogo(bool vazio,  string nomeArquivo = "default"); // OK!
         ~Catalogo(); // OK!
 
         // Adição de Filmes ao catálogo.
@@ -78,7 +78,7 @@ class Catalogo
         // Recebe o nome do Filme e retorna um ponteiro para sua estrutura.
         // Caso não ache, aponta para NULL.
     
-        Filme * operator()(string);
+        Filme * operator()(string); // OK!
 
         // Edição de Filme no catálogo.
         // A busca pela estrutura é feita pelo, que não pode ser alterado.
@@ -86,15 +86,17 @@ class Catalogo
         // Existem três sobrecargas diferentes: Mudar só produtora, só nota,
         // ou ambos.
         
-        Filme * operator()(string, string);
-        Filme * operator()(string, double);
-        Filme * operator()(string, string, double);
+        Filme * operator()(string, string); // OK!
+        Filme * operator()(string, double); // OK!
+        Filme * operator()(string, string, double); // OK!
 
         // ---
         
         vector <Filme> getListaFilmes(); // OK!
         void insertionSort(); // OK!
-       
+      
+        bool verificarExistenciaDoFilme(Filme);
+
     private:
 
         // Implementação da persistência dos dados através de um CSV.
