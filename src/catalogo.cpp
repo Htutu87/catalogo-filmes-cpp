@@ -174,8 +174,12 @@ Catalogo::~Catalogo() {
 }
 
 void Catalogo::operator+=(Filme & _filme) {
-    filmes.push_back(_filme);
-    insertionSort();
+    if (filmes.size() >= 20 )
+        cout << "O catalogo ja possui o numero maximo de filmes permitido." << endl;
+    else {
+        filmes.push_back(_filme);
+        insertionSort();
+    }
 }
 
 void Catalogo::operator+=(vector<Filme> & _filmes)
@@ -207,7 +211,7 @@ Filme * Catalogo::operator()(string _nome)
 { 
     for (Filme & filme:filmes)
         if (filme.nome == _nome)
-            return &filme;
+            return &filme; // retorna o endereço da referencia para o filme em quest.
     return NULL;
 }
 
@@ -215,11 +219,17 @@ Filme * Catalogo::operator()(string nome, string novaProdutora)
 {
     Filme * filmeAlterado;
 
-    filmeAlterado = (*this)(nome);
+    cout << "A" << endl;
+
+    filmeAlterado = (*this)(nome); // ISSO AQUI RETORNA NULL, MAS NAO DEVERIA.
+    cout << "filmeAlterado: ";
+    cout << filmeAlterado << endl;
     if (!filmeAlterado)
         return NULL;
+    cout << "A" << endl;
     
     (*filmeAlterado).produtora = novaProdutora;
+    cout << "A" << endl;
     return filmeAlterado;
 }
 
@@ -280,12 +290,16 @@ void Catalogo::carregar(string nomeArquivo)
     string notaStr;
     double nota;
     bool lerArquivo = true;
+    int numLinhas=0;
 
     arquivo.open(nomeArquivo);
 
     if(!arquivo) {
-            cout << "Impedido de abrir arquivo." << endl;
-            return ;
+        cout << "Impedido de abrir arquivo." << endl;
+        return ;
+    } else if (arquivo.fail()){
+        cout << "Arquivo especificado nao existe." << endl;
+        return ;
     }
 
     
@@ -311,6 +325,13 @@ void Catalogo::carregar(string nomeArquivo)
 
             Filme f = {nome, produtora, nota};
             (*this) += f;
+            numLinhas++;
+            if (numLinhas == 20)
+            {
+                lerArquivo = false;
+                cout << "O catalogo lido possui mais que o limite maximo de filmes "                        << "permitido (" << numMaxFilmes << ")." << endl;
+                cout << "Truncando catalogo." << endl;
+            }
         }
     }
     
@@ -322,6 +343,11 @@ void Catalogo::carregar(string nomeArquivo)
 
 void Catalogo::salvar(string nomeArquivo)
 {
+    // Fiz essa modificação para deixar o catálogo padrão intacto e facilitar
+    // os testes.
+    if (nomeArquivo == "catalogo-padrao.txt")
+        nomeArquivo = "catalogo-padrao-editado.txt";
+
     ofstream arquivo;
     arquivo.open (nomeArquivo);
     for (Filme f:filmes)

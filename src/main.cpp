@@ -8,6 +8,10 @@
 
 #define DEFAULT_STRING "A"
 
+///////////////////////////////////////////////////////////////////////
+//
+// Funcionalidades do menu //
+
 void printaMenu()
 { 
     cout << "-------------------------------------------- "<< endl;
@@ -22,47 +26,101 @@ void printaMenu()
     cout << "[0] Sair"<< endl << endl;
 }
 
+void pressEnter(){
+    string aux;
+    cout << "Aperte [ENTER] para prosseguir. "<< endl;
+    getline(cin, aux);
+}
+
+///////////////////////////////////////////////////////////////////////
+//
+// Função principal //
 
 int main()
 {
+    // Strings que o progrma utiliza //
     string op;
     string aux;
     string nomeArquivo = "./data/catalogo-padrao.txt";
+    string novaProdutora;
+    string novaNota;
+    
+    // Variáveis booleanas, para controle de fluxo do código //
     bool executarPrograma = true;
     bool inicializarVazio;
     bool filmeExiste;
-    int i = 0;
+    
+    // Variáveis numéricas //
+    long unsigned i = 0;
     double maiorNota;
-    string novaProdutora;
-    string novaNota;
+    
+    // Variáveis relativas a Filmes, que armazenam temporariamente informações
+    // sobre eles. "Dummy variables".
     Filme f;
     Filme * fPtr;
 
-    cout << endl << "CATALOGO DE FILMES INTERATIVO" << endl << endl;
 
+//////////////////////////////////////////////////////////////////////
+//
+// Interação inicial  -> Pergunta para o usuário qual catálogo ele  //
+// gostaria de inicializar no programa                              //
+
+    cout << endl << "CATALOGO DE FILMES INTERATIVO" << endl << endl;
     cout << "Deseja inicializar um catalogo vazio? [s/n]: ";
     getline(cin, op);
+
     if (op == "s" || op == "S")
-        inicializarVazio = true;
-    else
     {
+        inicializarVazio = true;
+        cout << "--> Catalogo vazio inicializado." << endl;
+    }
+    else
+    { 
         inicializarVazio = false;
+    
         cout << "Inicializar catalogo padrao? [s/n]: ";
         getline(cin, op);
+    
         if (op == "s" || op == "S")
         {
             nomeArquivo = "./data/catalogo-padrao.txt";
+            cout << "--> Catalogo padrao inicializado." << endl;
+            cout << "Nome do arquivo: " << nomeArquivo << endl;
         }
         else
         {
-            cout << "Insira o nome do arquivo com o catalogo a ser inicializado: ";
+            cout << "Insira o CAMINHO RELATIVO ao arquivo com o catalogo a " 
+                << "ser inicializado: ";
             getline(cin, nomeArquivo);
+
+            // Breve verificação da existência do arquivo passado.
+            // Caso não existe, inicializa um catálogo vazio.
+            ifstream arquivo(nomeArquivo);
+
+            if (arquivo.fail())
+            {
+                cout << "--> Este arquivo nao existe. Inicializando catalogo vazio."
+                    << endl;
+                inicializarVazio = true;
+                arquivo.close();
+            } 
+            else 
+            {
+                cout << "--> Inicializando catalogo." << endl;
+                cout << "Nome do arquivo: " << nomeArquivo << endl;
+            }
         }
-        cout << "Inicializando catalogo." << endl;
-        cout << "Nome do arquivo: " << nomeArquivo << endl;
     }
+
+    // Inicialização do catálogo -> Vazio ou a partir de arquivo CSV escolhido
+    // pelo usuário.
+    //
     Catalogo catalogo(inicializarVazio, nomeArquivo);
 
+    pressEnter();
+
+    // Loop principal do programa
+    //
     while (executarPrograma) 
     {
         printaMenu();
@@ -72,61 +130,116 @@ int main()
         switch(stoi(op))
         {
             case 1:
-                cout << catalogo;
+
+                // Só printa o catálogo caso ele não seja vazio.
+                if (catalogo.getListaFilmes().size() != 0)
+                    cout << catalogo;
+                else
+                    cout << "---\nCatalogo Vazio, nao ha nada para mostrar.\n---"
+                        << endl;
                 break;
+            
             case 2:
+
                 cin >> f;
-                while(!filmeExiste)
-                {
-                    if (f == catalogo.getListaFilmes()[i])
-                        filmeExiste = true;
-                    i++;
-                }
+                filmeExiste = false;
+
+                // Percorre lista de filmes do catálogo. Só adiciona o filme caso
+                // ele não exista
+                //
+                if (catalogo.getListaFilmes().size() != 0)
+                    while (!filmeExiste)
+                    {
+                        if  (f == catalogo.getListaFilmes()[i])
+                            filmeExiste = true;
+                        
+                        // Se o indice é igual ao tamanho do catálogo,    
+                        // quebra o loop.
+                        //
+                        if (i == catalogo.getListaFilmes().size() - 1) 
+                            break;
+                        
+                        i++;
+                    }
+
                 if (!filmeExiste) 
                     catalogo += f;
+                
                 else
-                    cout << "Nao eh possivel adicionar outro filme com esse nome." << endl;
+                    cout << "Nao eh possivel adicionar outro filme" 
+                        << "com esse nome." << endl;
                 break;
+
             case 3:
-                // Está dando seg fault //
+                
                 cout << "Insira o nome do filme a ser removido: ";
                 getline (cin, op);
+                
+                // O ponteiro "dummy" recebe o endereço do filme a ser removido.
+                //
                 fPtr = catalogo(op);
+                
+                // Se o endereço recebido não for nulo (i.e., filme existe), ele
+                // é removido através do operador -=.
+                //
                 if (fPtr != NULL)
                     catalogo -= (*fPtr);
                 else
                     cout << "-> Este filme nao existe no catalogo." << endl;
                 break;
+
             case 4:
+
                 cout << "Insira o nome do filme para ver seus dados: ";
                 getline (cin, op);
+                
                 fPtr = catalogo(op);
+                
                 if (fPtr != NULL)
                     cout << *fPtr;
                 else
                     cout << "-> Este filme nao existe no catalogo." << endl;
                 break;
+
             case 5:
+
                 cout << "Insira o nome do filme para edita-lo: ";
-                fPtr = catalogo(aux);
                 getline (cin, aux);
+
+                fPtr = catalogo(aux);
+
+
+
+/*                cout << *fPtr;
+
                 if (fPtr != NULL)
                 {
+                    cout << "filme a ser removido." << endl;
+                    cout << *fPtr;
+
                     catalogo -= (*fPtr);
+                    
                     cout << "Editar: \n\t[0] Produtora\n\t[1] Nota\n\t[2] Ambos\n\n";
                     cout << "Digite sua escolha:" ;
+
                     getline (cin, op);
                     if (op == "0")
                     {   
                         cout << "Insira a nova produtora: ";
                         getline(cin, novaProdutora);
-                        catalogo((*fPtr).nome, novaProdutora);
+                        fPtr = catalogo(aux, novaProdutora);
+                        
+                        cout << "Prestes a remover:" << endl;
+                        cout << *fPtr;
+                        //Filme & fRef = (*fPtr);
+                        //catalogo += (fRef);
                     }
                     else if (op == "1")
                     {
                         cout << "Insira a nova nota: ";
                         getline(cin, novaNota);
-                        catalogo((*fPtr).nome, stod(novaNota));
+                        fPtr = catalogo(aux, stod(novaNota));
+                        catalogo += (*fPtr);
                     }
                     else if (op == "2")
                     {
@@ -134,7 +247,11 @@ int main()
                         getline(cin, novaProdutora);
                         cout << "Insira a nova nota: ";
                         getline(cin, novaNota);
-                        catalogo( (*fPtr).nome, novaProdutora, stod(novaNota));
+                        cout << "ASAS" << endl;
+                        fPtr = catalogo(aux, novaProdutora, stod(novaNota));
+                        cout << "ASAS" << endl;
+                        catalogo += (*fPtr);
+                        cout << "ASAS" << endl;
                     }
                     else
                     {
@@ -142,32 +259,44 @@ int main()
                     }
                 }
                 else
-                    cout << "-> Este filme nao existe no catalogo." << endl;
+                    cout << "-> Este filme nao existe no catalogo." << endl;*/
                 break;
+           
             case 6:
-                maiorNota = 0;
-                for (Filme filme:catalogo.getListaFilmes())
-                    if (filme > maiorNota)
-                    {
-                        f = filme;
-                        maiorNota = f.nota;
-                    }
-                cout << "Filme mais bem avaliado:" << endl;
-                cout <<  f;
+                
+                // Breve algoritmo de obter o máximo dentro deuma lista
+                //
+                
+                if (catalogo.getListaFilmes().size() != 0)
+                {
+                    maiorNota = 0;
+                    for (Filme filme:catalogo.getListaFilmes())
+                        if (filme > maiorNota)
+                        {
+                            f = filme;
+                            maiorNota = f.nota;
+                        }
+                    cout << "Filme mais bem avaliado:" << endl;
+                    cout <<  f;
+                }
+                else
+                    cout << "---\nCatalogo Vazio, nao ha nada para mostrar.\n---"
+                        << endl;
                 break;
+
             case 0:
-                cout << "A" << endl;
+           
                 executarPrograma = false;
                 break;
+           
             default:
+           
                 cout << "Operacao invalida, tente novamente." << endl;
                 break;
         }
+        
         if(executarPrograma)
-        {
-            cout << "Aperte [ENTER] para prosseguir. "<< endl;
-            getline(cin, op);
-        }
+            pressEnter();
     }
 
     return 0;

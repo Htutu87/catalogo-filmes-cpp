@@ -14,4 +14,3 @@ O iluminado,MGM,8
 O poderoso chefao,DreamWorks,4.2
 Parasita,MGM,6
 Pulp Fiction,DreamWorks,5.3
-Rio,Fox,6.6
