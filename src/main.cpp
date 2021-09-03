@@ -203,63 +203,71 @@ int main()
 
             case 5:
 
+                Filme * auxPtr;
+
                 cout << "Insira o nome do filme para edita-lo: ";
                 getline (cin, aux);
 
-                fPtr = catalogo(aux);
-
-
-
-/*                cout << *fPtr;
-
-                if (fPtr != NULL)
+                auxPtr = catalogo(aux);
+                
+                cout << "Ponteiro recebido: " << auxPtr << endl;
+                
+                if (auxPtr != NULL)
                 {
-                    cout << "filme a ser removido." << endl;
-                    cout << *fPtr;
-
-                    catalogo -= (*fPtr);
+                    // Isto é, é válido editar o filme.
                     
+                    cout << "Filme a ser removido: "<< endl; 
+                    cout << *auxPtr << endl;
+                
                     cout << "Editar: \n\t[0] Produtora\n\t[1] Nota\n\t[2] Ambos\n\n";
                     cout << "Digite sua escolha:" ;
-
                     getline (cin, op);
-                    if (op == "0")
-                    {   
-                        cout << "Insira a nova produtora: ";
-                        getline(cin, novaProdutora);
-                        fPtr = catalogo(aux, novaProdutora);
-                        
-                        cout << "Prestes a remover:" << endl;
-                        cout << *fPtr;
-                        //Filme & fRef = (*fPtr);
-                        //catalogo += (fRef);
-                    }
-                    else if (op == "1")
-                    {
-                        cout << "Insira a nova nota: ";
-                        getline(cin, novaNota);
-                        fPtr = catalogo(aux, stod(novaNota));
-                        catalogo += (*fPtr);
-                    }
-                    else if (op == "2")
-                    {
-                        cout << "Insira a nova produtora: ";
-                        getline(cin, novaProdutora);
-                        cout << "Insira a nova nota: ";
-                        getline(cin, novaNota);
-                        cout << "ASAS" << endl;
-                        fPtr = catalogo(aux, novaProdutora, stod(novaNota));
-                        cout << "ASAS" << endl;
-                        catalogo += (*fPtr);
-                        cout << "ASAS" << endl;
-                    }
-                    else
+                    
+                    if (op != "0" && op != "1" && op != "2" )
                     {
                         cout << "Opcao invalida. Tente novamente." << endl;
                     }
+                    else
+                    {
+                        if (op == "0")
+                        {
+                            cout << "Insira a nova produtora: ";
+                            getline(cin, novaProdutora);
+
+                            fPtr = catalogo(aux, novaProdutora);
+                            
+                        }
+                        else if (op == "1")
+                        {
+                            cout << "Insira a nova nota: ";
+                            getline(cin, novaNota);
+                            
+                            fPtr = catalogo(aux, stod(novaNota));
+                        
+                        }
+                        else if (op == "2")
+                        {
+                            cout << "Insira a nova produtora: ";
+                            getline(cin, novaProdutora);
+                            
+                            cout << "Insira a nova nota: ";
+                            getline(cin, novaNota);
+
+                            fPtr = catalogo(aux, novaProdutora, stod(novaNota));
+
+                        }
+                    
+                        catalogo += *fPtr;
+                        catalogo -= *auxPtr;         
+                        
+                    }
+                                    
                 }
-                else
-                    cout << "-> Este filme nao existe no catalogo." << endl;*/
+                else 
+                {
+                    cout << "-> Este filme nao existe no catalogo." << endl; 
+                } 
+                
                 break;
            
             case 6:
