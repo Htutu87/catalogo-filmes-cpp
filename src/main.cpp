@@ -210,8 +210,6 @@ int main()
 
                 auxPtr = catalogo(aux);
                 
-                cout << "Ponteiro recebido: " << auxPtr << endl;
-                
                 if (auxPtr != NULL)
                 {
                     // Isto é, é válido editar o filme.

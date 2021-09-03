@@ -6,7 +6,10 @@
 
 #include "../include/catalogo.h"
 
+//////////////////////////////////////////////////////////////
+// 
 // Impressão de filmes e catálogo
+//
 ostream & operator<<(ostream & _cout, Filme _filme)
 {
     _cout << "---\nFilme:" << endl;
@@ -35,7 +38,10 @@ ostream & operator<<(ostream & _cout, Catalogo _catalogo)
     return _cout;
 }
 
+//////////////////////////////////////////////////////////////
+//
 // Inicialização de filme.
+//
 istream & operator>>(istream & _cin, Filme& _filme)
 {
     string notaStr;
@@ -60,8 +66,11 @@ istream & operator>>(istream & _cin, Filme& _filme)
     return _cin;
 }
 
+//////////////////////////////////////////////////////////////
+//
 // Operações para comparar filmes.
-
+//
+//
 bool operator<(Filme _f1, Filme _f2)
 {
     string menorNome;
@@ -84,8 +93,6 @@ bool operator<(Filme _f1, Filme _f2)
 
     while (indice < menorNome.size())
     {
-       // cout << _f1.nome[indice] << " < " << _f2.nome[indice]
-        //    << " -> " << (_f1.nome[indice] < _f2.nome[indice]) << endl;
 
         if (_f1.nome[indice] < _f2.nome[indice])
             return true;
@@ -96,11 +103,10 @@ bool operator<(Filme _f1, Filme _f2)
         indice++;
     } 
     // Sair do loop significa que a comparação entre os caracteres deu
-    // igual até o momento.
+    // igual até o momento. A desambiguação final é a diferença de tamanhos,
+    // ou seja, o menor nome é retornado como anterior na ordem alfabética.
+    // P.e.: "Ana" < "Ana Beatriz" --> True.
 
-    // Isso não exclui o fato de que o f1 tambem tem o nome igual a menorNome.
-    // artur artura
-    //
     if (_f1.nome == menorNome)
         return true;
     return false; 
@@ -128,9 +134,6 @@ bool operator>(Filme _f1, Filme _f2)
 
     while (indice < menorNome.size())
     {
-       // cout << _f1.nome[indice] << " < " << _f2.nome[indice]
-        //    << " -> " << (_f1.nome[indice] < _f2.nome[indice]) << endl;
-
         if (_f1.nome[indice] > _f2.nome[indice])
             return true;
 
@@ -158,8 +161,10 @@ bool operator<(Filme _f, double nota) {
 bool operator>(Filme _f, double nota){
     return (_f.nota > nota) ? true : false;
 }
-
+//////////////////////////////////////////////////////////////
+//
 // Métodos da classe catálogo.
+//
 Catalogo::Catalogo(bool inicializarVazio, string _nomeArquivo)
 {
     if (!inicializarVazio)
@@ -221,9 +226,7 @@ Filme * Catalogo::operator()(string nome, string novaProdutora)
 
     cout << "A" << endl;
 
-    filmeAlterado = (*this)(nome); // ISSO AQUI RETORNA NULL, MAS NAO DEVERIA.
-    cout << "filmeAlterado: ";
-    cout << filmeAlterado << endl;
+    filmeAlterado = (*this)(nome); 
     if (!filmeAlterado)
         return NULL;
     cout << "A" << endl;
