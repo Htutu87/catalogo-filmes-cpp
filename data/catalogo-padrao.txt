@@ -4,10 +4,10 @@ Bastardos Inglorios,MGM,7.4
 Batman begins,21st Century Fox,8
 Caes de Aluguel,MGM,1
 Central do Brasil,DreamWorks,3.3
-Cidade de Deus,21st Century Fox,3
+Cidade de Deus,21st Century Fox,5656
 Forrest Gump,21st Century Fox,9.6
 Green Book,Paramount,7.2
-La la land,Fox,5.9
+La la land,Fox,2
 O iluminado,MGM,8
 O poderoso chefao,DreamWorks,4.2
 Parasita,MGM,6

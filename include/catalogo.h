@@ -21,6 +21,8 @@ struct Filme
     double nota;
 };
 
+double recebeStringDevolveDouble();
+
 // Declaração antecipada para que as sobrecargas globais conheçam a classe.
 class Catalogo;
 

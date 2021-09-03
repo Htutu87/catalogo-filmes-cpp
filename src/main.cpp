@@ -39,7 +39,7 @@ void pressEnter(){
 int main()
 {
     // Strings que o progrma utiliza //
-    string op;
+    string opString;
     string aux;
     string nomeArquivo = "./data/catalogo-padrao.txt";
     string novaProdutora;
@@ -49,10 +49,12 @@ int main()
     bool executarPrograma = true;
     bool inicializarVazio;
     bool filmeExiste;
+    bool auxBool;
     
     // Variáveis numéricas //
     long unsigned i = 0;
     double maiorNota;
+    double opDouble;
     
     // Variáveis relativas a Filmes, que armazenam temporariamente informações
     // sobre eles. "Dummy variables".
@@ -67,9 +69,9 @@ int main()
 
     cout << endl << "CATALOGO DE FILMES INTERATIVO" << endl << endl;
     cout << "Deseja inicializar um catalogo vazio? [s/n]: ";
-    getline(cin, op);
+    getline(cin, opString);
 
-    if (op == "s" || op == "S")
+    if (opString == "s" || opString == "S")
     {
         inicializarVazio = true;
         cout << "--> Catalogo vazio inicializado." << endl;
@@ -79,9 +81,9 @@ int main()
         inicializarVazio = false;
     
         cout << "Inicializar catalogo padrao? [s/n]: ";
-        getline(cin, op);
+        getline(cin, opString);
     
-        if (op == "s" || op == "S")
+        if (opString == "s" || opString == "S")
         {
             nomeArquivo = "./data/catalogo-padrao.txt";
             cout << "--> Catalogo padrao inicializado." << endl;
@@ -119,15 +121,15 @@ int main()
 
     pressEnter();
 
-    // Loop principal do programa
+    // LoopString principal do programa
     //
     while (executarPrograma) 
     {
         printaMenu();
         cout << "Escolha uma opcao: ";
-        getline(cin, op);
+        opDouble = recebeStringDevolveDouble();
 
-        switch(stoi(op))
+        switch(static_cast<int>(opDouble))
         {
             case 1:
 
@@ -154,7 +156,7 @@ int main()
                             filmeExiste = true;
                         
                         // Se o indice é igual ao tamanho do catálogo,    
-                        // quebra o loop.
+                        // quebra o loopString.
                         //
                         if (i == catalogo.getListaFilmes().size() - 1) 
                             break;
@@ -173,14 +175,14 @@ int main()
             case 3:
                 
                 cout << "Insira o nome do filme a ser removido: ";
-                getline (cin, op);
+                getline (cin, opString);
                 
                 // O ponteiro "dummy" recebe o endereço do filme a ser removido.
                 //
-                fPtr = catalogo(op);
+                fPtr = catalogo(opString);
                 
                 // Se o endereço recebido não for nulo (i.e., filme existe), ele
-                // é removido através do operador -=.
+                // é removido através do opStringerador -=.
                 //
                 if (fPtr != NULL)
                     catalogo -= (*fPtr);
@@ -191,9 +193,9 @@ int main()
             case 4:
 
                 cout << "Insira o nome do filme para ver seus dados: ";
-                getline (cin, op);
+                getline (cin, opString);
                 
-                fPtr = catalogo(op);
+                fPtr = catalogo(opString);
                 
                 if (fPtr != NULL)
                     cout << *fPtr;
@@ -219,15 +221,15 @@ int main()
                 
                     cout << "Editar: \n\t[0] Produtora\n\t[1] Nota\n\t[2] Ambos\n\n";
                     cout << "Digite sua escolha:" ;
-                    getline (cin, op);
+                    getline (cin, opString);
                     
-                    if (op != "0" && op != "1" && op != "2" )
+                    if (opString != "0" && opString != "1" && opString != "2" )
                     {
                         cout << "Opcao invalida. Tente novamente." << endl;
                     }
                     else
                     {
-                        if (op == "0")
+                        if (opString == "0")
                         {
                             cout << "Insira a nova produtora: ";
                             getline(cin, novaProdutora);
@@ -235,23 +237,37 @@ int main()
                             fPtr = catalogo(aux, novaProdutora);
                             
                         }
-                        else if (op == "1")
+                        else if (opString == "1")
                         {
                             cout << "Insira a nova nota: ";
-                            getline(cin, novaNota);
-                            
-                            fPtr = catalogo(aux, stod(novaNota));
-                        
+                            auxBool = true;
+                            while (auxBool){
+                                opDouble = recebeStringDevolveDouble();
+                                if (opDouble > 0.0 && opDouble < 10.0)
+                                    auxBool = false;
+                                else
+                                    cout << "Insira uma nota entre 0 e 10." << endl;
+                            }
+
+                            fPtr = catalogo(aux, opDouble);
                         }
-                        else if (op == "2")
+                        else if (opString == "2")
                         {
                             cout << "Insira a nova produtora: ";
                             getline(cin, novaProdutora);
                             
                             cout << "Insira a nova nota: ";
-                            getline(cin, novaNota);
+                            
+                            auxBool = true;
+                            while (auxBool){
+                                opDouble = recebeStringDevolveDouble();
+                                if (opDouble > 0.0 && opDouble < 10.0)
+                                    auxBool = false;
+                                else
+                                    cout << "Insira uma nota entre 0 e 10." << endl;
+                            }
 
-                            fPtr = catalogo(aux, novaProdutora, stod(novaNota));
+                            fPtr = catalogo(aux, novaProdutora, opDouble);
 
                         }
                     

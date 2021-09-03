@@ -1,0 +1,39 @@
+// Universidade Federal do Rio de Janeiro
+// EEL670 - Linguagens de Programção
+// Prof.: Miguel Campista
+// Exercício avaliado 03
+// Autor: Artur Amaral | DRE: 119057968 | Agosto 2021
+-------------------------------
+
+-- Descrição do programa --
+
+    O programa consiste em um menu interativo via linha de comando que permite
+a interação do usuário com uma classe que implementa um catálogo, que armazena
+os filmes na forma de um vetor de estruturas (structs). Os operadores padrão do
+C++ foram sobrecarregados de forma a suportar operações com filmes e o catálogo.
+    Também foi implementada a persistência dos dados, através da escrita em um
+arquivo CSV. O usuário pode, também, carregar os seus próprios arquivos CSV no
+programa.
+
+-- Compilando e executando o programa --
+
+    Baixe o diretório do projeto na sua máquina. Através da linha de comando,
+navegue até este diretório. Nele há um makefile para compilação dos códigos.
+
+- Para gerar o executável digite no shell:
+    "make" ou "make catalogo"
+- Para deletar o executável e seus arquivos objeto digite no shell:
+    "make clean"
+
+-- Sobre a estrutura das pastas --
+
+    Nesse trabalho resolvi experimentar trabalhar com uma estrutura de pastas
+para o projeto, separando arquivos objeto, códigos fonte, dados, etc, em diferentes
+subdiretórios. 
+
+    Também criei um diretório exclusivo para testes pontuais de
+operadores e funções, que deixarei na entrega final pois foi importante para o
+desenvolvimento do meu raciocínio. Contudo, deve ficar claro que os códigos naquela
+pasta não compõem o exercício em si, e nem tentam seguir boas práticas ou serem
+formais.
+

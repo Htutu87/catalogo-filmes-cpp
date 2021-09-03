@@ -6,6 +6,33 @@
 
 #include "../include/catalogo.h"
 
+///////////////////////////////////////////////////////////////////////
+//
+// Função auxiliar que implementei para tratar exceções da função stod().
+
+double recebeStringDevolveDouble()
+{
+    double d;
+    string s;
+    bool stringValida = false;
+    while (!stringValida)
+    {
+        getline(cin, s);
+        try 
+        {
+            d = stod(s);
+            stringValida = true;
+        }
+        catch (invalid_argument const& ) 
+        {
+            cout << "Essa entrada nao pode ser convertida em um numero." << endl
+                << "Tente novamente: ";
+        }
+    }
+
+    return d;
+}
+
 //////////////////////////////////////////////////////////////
 // 
 // Impressão de filmes e catálogo
@@ -51,14 +78,12 @@ istream & operator>>(istream & _cin, Filme& _filme)
     cout << "Insira o nome da produtora: ";
     getline(_cin, _filme.produtora);
     cout << "Insira a nota do filme: ";
-    getline(_cin, notaStr);
-    _filme.nota = stod(notaStr);
+    _filme.nota = recebeStringDevolveDouble();
     while (_filme.nota < 0.0 || _filme.nota > 10.0)
     {
         cout << "Apenas notas entre 0.0 e 10.0 sao permitidas." << endl;
         cout << "Insira a nota novamente: ";
-        getline(_cin, notaStr);
-        _filme.nota = stod(notaStr);
+        _filme.nota = recebeStringDevolveDouble();
     }  
     cout << "\nFilme inicializado com sucesso." << endl;
     cout << "---" << endl;
@@ -224,15 +249,11 @@ Filme * Catalogo::operator()(string nome, string novaProdutora)
 {
     Filme * filmeAlterado;
 
-    cout << "A" << endl;
-
     filmeAlterado = (*this)(nome); 
     if (!filmeAlterado)
         return NULL;
-    cout << "A" << endl;
     
     (*filmeAlterado).produtora = novaProdutora;
-    cout << "A" << endl;
     return filmeAlterado;
 }
 
